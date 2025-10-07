@@ -1,4 +1,4 @@
-const pool = require("../database.js");
+const pool = require('../database.js');
 
 async function initDB() {
   const products = `
@@ -15,7 +15,8 @@ async function initDB() {
   const customers = `
     CREATE TABLE IF NOT EXISTS customers (
     customer_id SERIAL PRIMARY KEY,
-    customer_name VARCHAR(100) NOT NULL
+    customer_name VARCHAR(100) NOT NULL,
+    email TEXT NOT NULL
     );
     `;
 
@@ -35,6 +36,7 @@ async function initDB() {
 
     await pool.query(orders);
     console.log("Orders table ready");
+
   } catch (err) {
     console.error("Error initializing DB", err);
   }
@@ -65,6 +67,8 @@ async function insertInto() {
     const values3 = ["order 1"];
     const res3 = await pool.query(query3, values3);
     console.log("Inserted order:", res3.rows[0]);
+
+    
   } catch (err) {
     console.error("Error inserting into DB", err);
   }
